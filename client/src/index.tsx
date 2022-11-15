@@ -1,11 +1,19 @@
-import { createRoot } from "react-dom/client";
-import React from "react";
+// import { createRoot } from "react-dom/client";
+// import React from "react";
 
-const App = () => {
-  const name = "Mary";
-  return <p>{name}</p>;
+// const App = () => {
+//   const name = "Mary and Jesus";
+//   return <p>{name}</p>;
+// };
+
+// const container = document.getElementById("root");
+// const root = createRoot(container!);
+// root.render(<App />);
+
+const myName = "Marat";
+
+const printName = (name: string) => {
+  console.log(name);
 };
 
-const container = document.getElementById("root");
-const root = createRoot(container!);
-root.render(<App />);
+printName(myName);
