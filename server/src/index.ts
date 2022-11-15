@@ -4,7 +4,8 @@ const app: Express = express();
 app.use(express.json());
 
 app.get("/test", (req, res) => {
-  res.send("it works");
+  const name: string = "Marat";
+  res.send(`Hi ${name}`);
 });
 
 app.listen(8000, () => {
