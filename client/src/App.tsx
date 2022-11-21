@@ -1,5 +1,5 @@
-import Postcard from "./Postcard";
-import Input from "./Input";
+import Postcard from "./components/Postcard";
+import Input from "./components/Input";
 import { Wrap, Box } from "@chakra-ui/react";
 import { useState } from "react";
 import _ from "lodash";
@@ -10,7 +10,6 @@ const App = () => {
   const addCard = (text: string) => {
     const id = _.uniqueId("hi");
     setCardData((prevState) => [...prevState, { text, id }]);
-    console.log(cardData);
   };
   return (
     <Box
@@ -25,7 +24,7 @@ const App = () => {
       >
         <Wrap p="5px" direction="row" justify={"end"} align={"end"}>
           {cardData.map((card) => (
-            <Postcard text={card.text} />
+            <Postcard key={card.id} text={card.text} />
           ))}
         </Wrap>
         <Input addCard={addCard} />
