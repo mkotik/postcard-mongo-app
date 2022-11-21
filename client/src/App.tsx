@@ -5,9 +5,7 @@ import { useState } from "react";
 import _ from "lodash";
 
 const App = () => {
-  const [cardData, setCardData] = useState<
-    { text: string; id: string | number }[]
-  >([]);
+  const [cardData, setCardData] = useState<{ text: string; id: string }[]>([]);
 
   const addCard = (text: string) => {
     const id = _.uniqueId("hi");
