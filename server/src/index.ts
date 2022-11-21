@@ -1,4 +1,7 @@
 import express, { Express } from "express";
+import mongoose from "mongoose";
+import PostcardSchema from "./models/Postcard";
+
 require("dotenv").config();
 const app: Express = express();
 
@@ -11,6 +14,9 @@ app.get("/", (req, res) => {
   res.send(`Hi ${name}`);
 });
 
-app.listen(PORT, () => {
-  console.log(`listening on port ${PORT}`);
+mongoose.connect(process.env.MONGO_URL!).then(() => {
+  console.log("Connected to MongoDB");
+  app.listen(PORT, () => {
+    console.log(`listening on port ${PORT}`);
+  });
 });
