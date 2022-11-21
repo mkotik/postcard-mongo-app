@@ -6,7 +6,7 @@ app.use(express.json());
 
 const PORT = process.env.PORT ?? 8000;
 
-app.get("/test", (req, res) => {
+app.get("/", (req, res) => {
   const name: string = "Marat";
   res.send(`Hi ${name}`);
 });

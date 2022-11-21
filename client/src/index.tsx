@@ -1,11 +1,11 @@
 import { createRoot } from "react-dom/client";
-import React from "react";
-
-const App = () => {
-  const name = "Mary and Jesus";
-  return <p>{name}</p>;
-};
+import { ChakraProvider } from "@chakra-ui/react";
+import App from "./App";
 
 const container = document.getElementById("root");
 const root = createRoot(container!);
-root.render(<App />);
+root.render(
+  <ChakraProvider>
+    <App />
+  </ChakraProvider>
+);

@@ -1,12 +1,16 @@
 const path = require("path");
 const HtmlWebPackPlugin = require("html-webpack-plugin");
+require("dotenv").config();
+// const BundleAnalyzerPlugin =
+//   require("webpack-bundle-analyzer").BundleAnalyzerPlugin;
 const htmlPlugin = new HtmlWebPackPlugin({
   template: "./public/index.html",
   filename: "./index.html",
 });
 
+console.log(process.env.ENVIRONMENT);
 module.exports = {
-  mode: "production",
+  mode: process.env.ENVIRONMENT || "production",
   entry: {
     bundle: path.resolve(__dirname, "./src/index.tsx"),
   },
@@ -44,5 +48,6 @@ module.exports = {
     extensions: [".js", ".jsx", ".ts", ".tsx"],
   },
   devtool: "inline-source-map",
-  plugins: [htmlPlugin],
+
+  plugins: [htmlPlugin /*, new BundleAnalyzerPlugin()*/],
 };
