@@ -1,16 +1,42 @@
-import Postcard from "./components/Postcard";
-import Input from "./components/Input";
+import { useEffect } from "react";
 import { Wrap, Box } from "@chakra-ui/react";
 import { useState } from "react";
-import _ from "lodash";
+import Postcard from "./components/Postcard";
+import Input from "./components/Input";
+import {
+  addPostcard,
+  deletePostcard,
+  getAllPostcards,
+  updatePostcard,
+} from "./services/apiService";
 
 const App = () => {
-  const [cardData, setCardData] = useState<{ text: string; id: string }[]>([]);
+  const [cardData, setCardData] = useState<{ text: string; _id: string }[]>([]);
 
-  const addCard = (text: string) => {
-    const id = _.uniqueId("hi");
-    setCardData((prevState) => [...prevState, { text, id }]);
+  const getAllCards = async () => {
+    const allCards = await getAllPostcards();
+    if (allCards) setCardData(allCards);
   };
+
+  const addCard = async (text: string) => {
+    const allCards = await addPostcard(text);
+    if (allCards) setCardData(allCards);
+  };
+
+  const deleteCard = async (id: string) => {
+    const allCards = await deletePostcard(id)!;
+    if (allCards) setCardData(allCards);
+  };
+
+  const updateCard = async (id: string, text: string) => {
+    const allCards = await updatePostcard(id, text);
+    if (allCards) setCardData(allCards);
+  };
+
+  useEffect(() => {
+    getAllCards();
+  }, []);
+
   return (
     <Box
       sx={{ minHeight: "100vh" }}
@@ -24,7 +50,13 @@ const App = () => {
       >
         <Wrap p="5px" direction="row" justify={"end"} align={"end"}>
           {cardData.map((card) => (
-            <Postcard key={card.id} text={card.text} />
+            <Postcard
+              key={card._id}
+              id={card._id}
+              text={card.text}
+              deleteCard={deleteCard}
+              updateCard={updateCard}
+            />
           ))}
         </Wrap>
         <Input addCard={addCard} />

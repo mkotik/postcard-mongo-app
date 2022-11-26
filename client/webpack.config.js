@@ -1,6 +1,8 @@
 const path = require("path");
+const NodePolyfillPlugin = require("node-polyfill-webpack-plugin");
 const HtmlWebPackPlugin = require("html-webpack-plugin");
 require("dotenv").config();
+const Dotenv = require("dotenv-webpack");
 // const BundleAnalyzerPlugin =
 //   require("webpack-bundle-analyzer").BundleAnalyzerPlugin;
 const htmlPlugin = new HtmlWebPackPlugin({
@@ -46,8 +48,17 @@ module.exports = {
   },
   resolve: {
     extensions: [".js", ".jsx", ".ts", ".tsx"],
+    fallback: {
+      os: require.resolve("os-browserify/browser"),
+      fs: require.resolve("fs"),
+    },
   },
   devtool: "inline-source-map",
 
-  plugins: [htmlPlugin /*, new BundleAnalyzerPlugin()*/],
+  plugins: [
+    htmlPlugin,
+    new NodePolyfillPlugin(),
+    new Dotenv(),
+    /*, new BundleAnalyzerPlugin()*/
+  ],
 };
